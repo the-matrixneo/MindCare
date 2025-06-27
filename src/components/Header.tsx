@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Menu, X, Shield, AlertTriangle, Mic, Globe, User } from 'lucide-react';
+import { Heart, Menu, X, Shield, AlertTriangle, Mic, Globe, User, Zap } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -68,6 +68,20 @@ export default function Header({ currentView, onNavigate, onCrisisAlert, onVoice
 
           {/* User Controls */}
           <div className="flex items-center space-x-4">
+            {/* Bolt Badge */}
+            <motion.a
+              href="https://bolt.new"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center space-x-2 px-3 py-1.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-xs font-semibold hover:shadow-lg transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              title="Built with Bolt"
+            >
+              <Zap className="w-3 h-3" />
+              <span>Built with Bolt</span>
+            </motion.a>
+
             {/* Voice Assistant Button */}
             <motion.button
               onClick={onVoiceToggle}
@@ -197,6 +211,19 @@ export default function Header({ currentView, onNavigate, onCrisisAlert, onVoice
                   <span className="font-medium">{item.label}</span>
                 </button>
               ))}
+              
+              {/* Mobile Bolt Badge */}
+              <motion.a
+                href="https://bolt.new"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-3 px-4 py-3 mx-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg text-sm font-semibold"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Zap className="w-4 h-4" />
+                <span>Built with Bolt</span>
+              </motion.a>
             </nav>
           </motion.div>
         )}
