@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Video, VideoOff, Mic, MicOff, Phone, PhoneOff, Shield, Clock, Lock } from 'lucide-react';
+import { Video, VideoOff, Mic, MicOff, Phone, PhoneOff, Shield, Clock, Lock, MessageCircle, Send } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 
 export default function TicTacChat() {
@@ -64,11 +64,6 @@ export default function TicTacChat() {
     setTimeout(() => {
       setIsConnected(true);
       setIsConnecting(false);
-      
-      // Simulate getting local video stream
-      if (localVideoRef.current) {
-        localVideoRef.current.srcObject = null; // In real app, this would be getUserMedia stream
-      }
       
       // Add system message
       setMessages(prev => [...prev, {
@@ -137,23 +132,26 @@ export default function TicTacChat() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+        className="glass-card p-6"
       >
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">TicTac Secure Chat</h1>
-            <p className="text-gray-600">Connect with licensed mental health professionals</p>
+            <h1 className="text-2xl font-bold gradient-text mb-2 flex items-center">
+              <MessageCircle className="w-8 h-8 mr-3 text-blue-400" />
+              TicTac Secure Chat
+            </h1>
+            <p className="text-white/80">Connect with licensed mental health professionals</p>
           </div>
           
           <div className="flex items-center space-x-4">
-            <div className="flex items-center text-sm text-gray-500">
+            <div className="flex items-center text-sm text-white/70">
               <Shield className="w-4 h-4 mr-1" />
               End-to-End Encrypted
             </div>
             
             {usageLimit.remaining !== -1 && (
-              <div className={`px-3 py-1 rounded-full text-sm ${
-                usageLimit.allowed ? 'bg-healing-100 text-healing-700' : 'bg-warm-100 text-warm-700'
+              <div className={`px-3 py-1 rounded-full text-sm glass-card ${
+                usageLimit.allowed ? 'text-green-300' : 'text-orange-300'
               }`}>
                 {usageLimit.remaining} min remaining
               </div>
@@ -168,7 +166,7 @@ export default function TicTacChat() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden"
+          className="lg:col-span-2 glass-card overflow-hidden"
         >
           {/* Video Area */}
           <div className="relative bg-gray-900 aspect-video">
@@ -185,12 +183,12 @@ export default function TicTacChat() {
                   autoPlay
                   playsInline
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-healing-500/20" />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-green-500/20" />
                 
                 {/* Simulated professional */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-white">
-                    <div className="w-24 h-24 bg-white/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <div className="w-24 h-24 glass-card rounded-full mx-auto mb-4 flex items-center justify-center">
                       <span className="text-3xl">👩‍⚕️</span>
                     </div>
                     <p className="text-lg font-semibold">Dr. Sarah Martinez</p>
@@ -205,7 +203,7 @@ export default function TicTacChat() {
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                className="absolute top-4 right-4 w-32 h-24 bg-gray-800 rounded-lg overflow-hidden border-2 border-white/20"
+                className="absolute top-4 right-4 w-32 h-24 glass-card rounded-lg overflow-hidden"
               >
                 <video
                   ref={localVideoRef}
@@ -226,7 +224,7 @@ export default function TicTacChat() {
             {!isConnected && !isConnecting && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center text-white">
-                  <div className="w-24 h-24 bg-white/10 rounded-full mx-auto mb-6 flex items-center justify-center">
+                  <div className="w-24 h-24 glass-card rounded-full mx-auto mb-6 flex items-center justify-center">
                     <Video className="w-12 h-12" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2">Ready to Connect</h3>
@@ -254,7 +252,7 @@ export default function TicTacChat() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="absolute top-4 left-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm flex items-center"
+                className="absolute top-4 left-4 glass-card text-white px-3 py-1 rounded-full text-sm flex items-center"
               >
                 <Clock className="w-4 h-4 mr-1" />
                 {formatDuration(callDuration)}
@@ -263,13 +261,13 @@ export default function TicTacChat() {
           </div>
 
           {/* Controls */}
-          <div className="p-4 bg-gray-50 flex items-center justify-center space-x-4">
+          <div className="p-4 glass-header flex items-center justify-center space-x-4">
             {isConnected ? (
               <>
                 <button
                   onClick={() => setVideoEnabled(!videoEnabled)}
-                  className={`p-3 rounded-full transition-colors ${
-                    videoEnabled ? 'bg-gray-200 text-gray-700' : 'bg-red-500 text-white'
+                  className={`glass-button p-3 rounded-full transition-colors ${
+                    videoEnabled ? 'text-white' : 'text-red-400'
                   }`}
                 >
                   {videoEnabled ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
@@ -277,8 +275,8 @@ export default function TicTacChat() {
                 
                 <button
                   onClick={() => setAudioEnabled(!audioEnabled)}
-                  className={`p-3 rounded-full transition-colors ${
-                    audioEnabled ? 'bg-gray-200 text-gray-700' : 'bg-red-500 text-white'
+                  className={`glass-button p-3 rounded-full transition-colors ${
+                    audioEnabled ? 'text-white' : 'text-red-400'
                   }`}
                 >
                   {audioEnabled ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
@@ -297,8 +295,8 @@ export default function TicTacChat() {
                 disabled={isConnecting || !usageLimit.allowed}
                 className={`px-8 py-3 rounded-full font-semibold transition-all ${
                   isConnecting || !usageLimit.allowed
-                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-primary-500 to-healing-500 text-white hover:shadow-lg'
+                    ? 'glass-button text-white/50 cursor-not-allowed'
+                    : 'gradient-button text-white hover:shadow-lg'
                 }`}
                 whileHover={!isConnecting && usageLimit.allowed ? { scale: 1.05 } : {}}
                 whileTap={!isConnecting && usageLimit.allowed ? { scale: 0.95 } : {}}
@@ -324,11 +322,11 @@ export default function TicTacChat() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-2xl shadow-lg border border-gray-100 flex flex-col h-96"
+          className="glass-card flex flex-col h-96"
         >
-          <div className="p-4 border-b border-gray-200">
-            <h3 className="font-semibold text-gray-900">Secure Chat</h3>
-            <p className="text-xs text-gray-500 mt-1">AI-moderated for safety</p>
+          <div className="glass-header p-4">
+            <h3 className="font-semibold text-white">Secure Chat</h3>
+            <p className="text-xs text-white/60 mt-1">AI-moderated for safety</p>
           </div>
 
           {/* Messages */}
@@ -349,10 +347,10 @@ export default function TicTacChat() {
                 >
                   <div className={`inline-block max-w-xs p-3 rounded-lg text-sm ${
                     message.type === 'system'
-                      ? 'bg-gray-100 text-gray-600'
+                      ? 'glass-card text-white/80'
                       : message.type === 'user'
-                      ? 'bg-primary-500 text-white'
-                      : 'bg-healing-100 text-healing-800'
+                      ? 'bg-blue-500 text-white'
+                      : 'glass-card text-white border border-green-400/30'
                   }`}>
                     {message.type !== 'system' && (
                       <div className="font-medium text-xs mb-1 opacity-75">
@@ -361,7 +359,7 @@ export default function TicTacChat() {
                     )}
                     <p>{message.content}</p>
                   </div>
-                  <div className="text-xs text-gray-400 mt-1">
+                  <div className="text-xs text-white/40 mt-1">
                     {message.timestamp.toLocaleTimeString()}
                   </div>
                 </motion.div>
@@ -370,22 +368,22 @@ export default function TicTacChat() {
           </div>
 
           {/* Message Input */}
-          <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-200">
+          <form onSubmit={handleSendMessage} className="p-4 border-t border-white/20">
             <div className="flex space-x-2">
               <input
                 type="text"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
                 placeholder="Type your message..."
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
+                className="flex-1 px-3 py-2 glass-card text-white placeholder-white/50 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none text-sm"
                 disabled={!isConnected}
               />
               <button
                 type="submit"
                 disabled={!newMessage.trim() || !isConnected}
-                className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                className="px-4 py-2 gradient-button text-white rounded-lg hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm"
               >
-                Send
+                <Send className="w-4 h-4" />
               </button>
             </div>
           </form>
@@ -397,18 +395,18 @@ export default function TicTacChat() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="bg-gradient-to-r from-crisis-500 to-warm-500 text-white rounded-2xl p-4"
+        className="glass-card p-4 border-l-4 border-red-400"
       >
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="font-semibold">Crisis Support Available 24/7</h3>
-            <p className="text-sm opacity-90">If you're in immediate danger, don't wait - get help now</p>
+            <h3 className="font-semibold text-white">Crisis Support Available 24/7</h3>
+            <p className="text-sm text-white/70">If you're in immediate danger, don't wait - get help now</p>
           </div>
           <div className="flex space-x-3">
-            <button className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            <button className="glass-button px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors">
               Call KIRAN: 1800-599-0019
             </button>
-            <button className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            <button className="glass-button px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors">
               Emergency: 112
             </button>
           </div>
@@ -429,22 +427,22 @@ export default function TicTacChat() {
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              className="bg-white rounded-2xl p-6 max-w-md w-full"
+              className="glass-card p-6 max-w-md w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Extend Your Session</h3>
-              <p className="text-gray-600 mb-6">
+              <h3 className="text-xl font-bold text-white mb-4">Extend Your Session</h3>
+              <p className="text-white/80 mb-6">
                 You've used your daily {user.limits.tictacMinutes} minutes. Upgrade to Premium for unlimited video sessions 
                 with licensed professionals.
               </p>
               <div className="flex space-x-3">
                 <button
                   onClick={() => setShowUpgrade(false)}
-                  className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                  className="flex-1 py-3 glass-button text-white rounded-lg hover:bg-white/20"
                 >
                   Maybe Later
                 </button>
-                <button className="flex-1 py-3 bg-gradient-to-r from-primary-500 to-healing-500 text-white rounded-lg">
+                <button className="flex-1 py-3 gradient-button text-white rounded-lg">
                   Upgrade Now
                 </button>
               </div>

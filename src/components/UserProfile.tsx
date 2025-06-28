@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { User, Edit3, Save, X, Camera, Globe, Shield, Bell, Palette, Heart } from 'lucide-react';
+import { User, Edit3, Save, X, Camera, Globe, Shield, Bell, Palette, Heart, Download, Trash2 } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -68,7 +68,7 @@ export default function UserProfile() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-primary-500 via-primary-600 to-healing-500 rounded-2xl p-8 text-white"
+        className="glass-card p-8 text-white"
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-6">
@@ -79,7 +79,7 @@ export default function UserProfile() {
                 className="w-24 h-24 rounded-full border-4 border-white/20 object-cover"
               />
               {isEditing && (
-                <label className="absolute bottom-0 right-0 bg-white text-primary-600 p-2 rounded-full cursor-pointer hover:bg-gray-100 transition-colors">
+                <label className="absolute bottom-0 right-0 glass-button text-white p-2 rounded-full cursor-pointer hover:bg-white/20 transition-colors">
                   <Camera className="w-4 h-4" />
                   <input
                     type="file"
@@ -91,21 +91,21 @@ export default function UserProfile() {
               )}
             </div>
             <div>
-              <h1 className="text-3xl font-bold mb-2">{user.profile.name}</h1>
-              <p className="text-primary-100 text-lg">
+              <h1 className="text-3xl font-bold mb-2 gradient-text">{user.profile.name}</h1>
+              <p className="text-white/80 text-lg">
                 {translate('profile.member_since', 'Member since')} {new Date(user.profile.joinDate || Date.now()).toLocaleDateString()}
               </p>
               <div className="flex items-center space-x-4 mt-2">
-                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                <span className={`px-3 py-1 rounded-full text-sm font-semibold glass-card ${
                   user.profile.tier === 'premium'
-                    ? 'bg-warm-100 text-warm-600'
+                    ? 'text-orange-300'
                     : user.profile.tier === 'professional'
-                    ? 'bg-primary-100 text-primary-600'
-                    : 'bg-gray-100 text-gray-600'
+                    ? 'text-blue-300'
+                    : 'text-white/80'
                 }`}>
                   {user.profile.tier.toUpperCase()}
                 </span>
-                <span className="text-primary-100 text-sm">
+                <span className="text-white/80 text-sm">
                   {currentLanguage.flag} {currentLanguage.nativeName}
                 </span>
               </div>
@@ -117,14 +117,14 @@ export default function UserProfile() {
               <>
                 <button
                   onClick={handleCancel}
-                  className="px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30 transition-colors flex items-center"
+                  className="px-4 py-2 glass-button text-white rounded-lg hover:bg-white/20 transition-colors flex items-center"
                 >
                   <X className="w-4 h-4 mr-2" />
                   {translate('profile.cancel', 'Cancel')}
                 </button>
                 <button
                   onClick={handleSave}
-                  className="px-4 py-2 bg-white text-primary-600 rounded-lg hover:bg-gray-100 transition-colors flex items-center font-semibold"
+                  className="px-4 py-2 gradient-button text-white rounded-lg hover:shadow-lg transition-all flex items-center font-semibold"
                 >
                   <Save className="w-4 h-4 mr-2" />
                   {translate('profile.save', 'Save Changes')}
@@ -133,7 +133,7 @@ export default function UserProfile() {
             ) : (
               <button
                 onClick={() => setIsEditing(true)}
-                className="px-4 py-2 bg-white/20 text-white rounded-lg hover:bg-white/30 transition-colors flex items-center"
+                className="px-4 py-2 glass-button text-white rounded-lg hover:bg-white/20 transition-colors flex items-center"
               >
                 <Edit3 className="w-4 h-4 mr-2" />
                 {translate('profile.edit', 'Edit Profile')}
@@ -144,8 +144,8 @@ export default function UserProfile() {
       </motion.div>
 
       {/* Tabs */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        <div className="border-b border-gray-200">
+      <div className="glass-card overflow-hidden">
+        <div className="border-b border-white/20">
           <nav className="flex space-x-8 px-6">
             {tabs.map((tab) => (
               <button
@@ -153,8 +153,8 @@ export default function UserProfile() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 py-4 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
-                    ? 'border-primary-500 text-primary-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                    ? 'border-blue-400 text-blue-300'
+                    : 'border-transparent text-white/60 hover:text-white/80'
                 }`}
               >
                 <tab.icon className="w-4 h-4" />
@@ -174,7 +174,7 @@ export default function UserProfile() {
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-white mb-2">
                     {translate('profile.full_name', 'Full Name')}
                   </label>
                   {isEditing ? (
@@ -182,15 +182,15 @@ export default function UserProfile() {
                       type="text"
                       value={editedProfile.name}
                       onChange={(e) => setEditedProfile(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-2 glass-card text-white placeholder-white/50 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
                     />
                   ) : (
-                    <p className="text-gray-900">{user.profile.name}</p>
+                    <p className="text-white/80">{user.profile.name}</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-white mb-2">
                     {translate('profile.email', 'Email')}
                   </label>
                   {isEditing ? (
@@ -198,15 +198,15 @@ export default function UserProfile() {
                       type="email"
                       value={editedProfile.email || ''}
                       onChange={(e) => setEditedProfile(prev => ({ ...prev, email: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-2 glass-card text-white placeholder-white/50 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
                     />
                   ) : (
-                    <p className="text-gray-900">{user.profile.email || 'Not provided'}</p>
+                    <p className="text-white/80">{user.profile.email || 'Not provided'}</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-white mb-2">
                     {translate('profile.age', 'Age')}
                   </label>
                   {isEditing ? (
@@ -216,15 +216,15 @@ export default function UserProfile() {
                       max="120"
                       value={editedProfile.age || ''}
                       onChange={(e) => setEditedProfile(prev => ({ ...prev, age: parseInt(e.target.value) }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-2 glass-card text-white placeholder-white/50 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
                     />
                   ) : (
-                    <p className="text-gray-900">{user.profile.age || 'Not provided'}</p>
+                    <p className="text-white/80">{user.profile.age || 'Not provided'}</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-white mb-2">
                     {translate('profile.location', 'Location')}
                   </label>
                   {isEditing ? (
@@ -232,17 +232,17 @@ export default function UserProfile() {
                       type="text"
                       value={editedProfile.location || ''}
                       onChange={(e) => setEditedProfile(prev => ({ ...prev, location: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-2 glass-card text-white placeholder-white/50 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
                       placeholder="City, Country"
                     />
                   ) : (
-                    <p className="text-gray-900">{user.profile.location || 'Not provided'}</p>
+                    <p className="text-white/80">{user.profile.location || 'Not provided'}</p>
                   )}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-white mb-2">
                   {translate('profile.bio', 'About Me')}
                 </label>
                 {isEditing ? (
@@ -250,16 +250,16 @@ export default function UserProfile() {
                     value={editedProfile.bio || ''}
                     onChange={(e) => setEditedProfile(prev => ({ ...prev, bio: e.target.value }))}
                     rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full px-3 py-2 glass-card text-white placeholder-white/50 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none resize-none"
                     placeholder="Tell us about yourself and your mental health journey..."
                   />
                 ) : (
-                  <p className="text-gray-900">{user.profile.bio || 'No bio provided'}</p>
+                  <p className="text-white/80">{user.profile.bio || 'No bio provided'}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
+                <label className="block text-sm font-medium text-white mb-3">
                   {translate('profile.mental_health_goals', 'Mental Health Goals')}
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -285,9 +285,9 @@ export default function UserProfile() {
                           }
                         }}
                         disabled={!isEditing}
-                        className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                        className="rounded border-white/30 text-blue-400 focus:ring-blue-400 bg-transparent"
                       />
-                      <span className="text-sm text-gray-700">{goal}</span>
+                      <span className="text-sm text-white/80">{goal}</span>
                     </label>
                   ))}
                 </div>
@@ -304,16 +304,16 @@ export default function UserProfile() {
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
+                  <label className="block text-sm font-medium text-white mb-3">
                     {translate('profile.language', 'Preferred Language')}
                   </label>
                   <select
                     value={currentLanguage.code}
                     onChange={(e) => changeLanguage(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full px-3 py-2 glass-card text-white rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
                   >
                     {supportedLanguages.map((lang) => (
-                      <option key={lang.code} value={lang.code}>
+                      <option key={lang.code} value={lang.code} className="bg-gray-800">
                         {lang.flag} {lang.name} ({lang.nativeName})
                       </option>
                     ))}
@@ -321,29 +321,29 @@ export default function UserProfile() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
+                  <label className="block text-sm font-medium text-white mb-3">
                     {translate('profile.timezone', 'Timezone')}
                   </label>
                   {isEditing ? (
                     <select
                       value={editedProfile.timezone}
                       onChange={(e) => setEditedProfile(prev => ({ ...prev, timezone: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-3 py-2 glass-card text-white rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
                     >
-                      <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
-                      <option value="America/New_York">America/New_York (EST)</option>
-                      <option value="Europe/London">Europe/London (GMT)</option>
-                      <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
-                      <option value="Australia/Sydney">Australia/Sydney (AEST)</option>
+                      <option value="Asia/Kolkata" className="bg-gray-800">Asia/Kolkata (IST)</option>
+                      <option value="America/New_York" className="bg-gray-800">America/New_York (EST)</option>
+                      <option value="Europe/London" className="bg-gray-800">Europe/London (GMT)</option>
+                      <option value="Asia/Tokyo" className="bg-gray-800">Asia/Tokyo (JST)</option>
+                      <option value="Australia/Sydney" className="bg-gray-800">Australia/Sydney (AEST)</option>
                     </select>
                   ) : (
-                    <p className="text-gray-900">{user.profile.timezone}</p>
+                    <p className="text-white/80">{user.profile.timezone}</p>
                   )}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
+                <label className="block text-sm font-medium text-white mb-3">
                   {translate('profile.therapy_preferences', 'Therapy Preferences')}
                 </label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -369,50 +369,11 @@ export default function UserProfile() {
                           }
                         }}
                         disabled={!isEditing}
-                        className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                        className="rounded border-white/30 text-blue-400 focus:ring-blue-400 bg-transparent"
                       />
-                      <span className="text-sm text-gray-700">{therapy}</span>
+                      <span className="text-sm text-white/80">{therapy}</span>
                     </label>
                   ))}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    {translate('profile.crisis_contact', 'Emergency Contact')}
-                  </label>
-                  {isEditing ? (
-                    <input
-                      type="tel"
-                      value={editedProfile.emergencyContact || ''}
-                      onChange={(e) => setEditedProfile(prev => ({ ...prev, emergencyContact: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="+1 (555) 123-4567"
-                    />
-                  ) : (
-                    <p className="text-gray-900">{user.profile.emergencyContact || 'Not provided'}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    {translate('profile.preferred_therapist_gender', 'Preferred Therapist Gender')}
-                  </label>
-                  {isEditing ? (
-                    <select
-                      value={editedProfile.preferredTherapistGender || ''}
-                      onChange={(e) => setEditedProfile(prev => ({ ...prev, preferredTherapistGender: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    >
-                      <option value="">No preference</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="non-binary">Non-binary</option>
-                    </select>
-                  ) : (
-                    <p className="text-gray-900">{user.profile.preferredTherapistGender || 'No preference'}</p>
-                  )}
                 </div>
               </div>
             </motion.div>
@@ -425,16 +386,16 @@ export default function UserProfile() {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-6"
             >
-              <div className="bg-gradient-to-r from-primary-50 to-healing-50 p-6 rounded-xl border border-primary-200">
+              <div className="glass-card p-6 border border-blue-400/30">
                 <div className="flex items-center mb-4">
-                  <Shield className="w-6 h-6 text-primary-600 mr-3" />
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <Shield className="w-6 h-6 text-blue-400 mr-3" />
+                  <h3 className="text-lg font-semibold text-white">
                     {translate('profile.privacy_settings', 'Privacy Settings')}
                   </h3>
                 </div>
                 <div className="space-y-4">
                   <label className="flex items-center justify-between">
-                    <span className="text-gray-700">
+                    <span className="text-white/80">
                       {translate('profile.data_sharing', 'Allow anonymous data sharing for research')}
                     </span>
                     <input
@@ -446,12 +407,12 @@ export default function UserProfile() {
                         }
                       }}
                       disabled={!isEditing}
-                      className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                      className="rounded border-white/30 text-blue-400 focus:ring-blue-400 bg-transparent"
                     />
                   </label>
                   
                   <label className="flex items-center justify-between">
-                    <span className="text-gray-700">
+                    <span className="text-white/80">
                       {translate('profile.analytics', 'Allow usage analytics')}
                     </span>
                     <input
@@ -463,12 +424,12 @@ export default function UserProfile() {
                         }
                       }}
                       disabled={!isEditing}
-                      className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                      className="rounded border-white/30 text-blue-400 focus:ring-blue-400 bg-transparent"
                     />
                   </label>
                   
                   <label className="flex items-center justify-between">
-                    <span className="text-gray-700">
+                    <span className="text-white/80">
                       {translate('profile.biometric_data', 'Store biometric templates locally')}
                     </span>
                     <input
@@ -480,30 +441,32 @@ export default function UserProfile() {
                         }
                       }}
                       disabled={!isEditing}
-                      className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                      className="rounded border-white/30 text-blue-400 focus:ring-blue-400 bg-transparent"
                     />
                   </label>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">
+                <div className="glass-card p-6">
+                  <h4 className="font-semibold text-white mb-3 flex items-center">
+                    <Download className="w-5 h-5 mr-2 text-green-400" />
                     {translate('profile.data_export', 'Data Export')}
                   </h4>
-                  <p className="text-gray-600 text-sm mb-4">
+                  <p className="text-white/70 text-sm mb-4">
                     {translate('profile.data_export_desc', 'Download all your data in a portable format')}
                   </p>
-                  <button className="w-full bg-primary-500 text-white py-2 rounded-lg hover:bg-primary-600 transition-colors">
+                  <button className="w-full gradient-button text-white py-2 rounded-lg hover:shadow-lg transition-all">
                     {translate('profile.download_data', 'Download My Data')}
                   </button>
                 </div>
 
-                <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">
+                <div className="glass-card p-6">
+                  <h4 className="font-semibold text-white mb-3 flex items-center">
+                    <Trash2 className="w-5 h-5 mr-2 text-red-400" />
                     {translate('profile.account_deletion', 'Account Deletion')}
                   </h4>
-                  <p className="text-gray-600 text-sm mb-4">
+                  <p className="text-white/70 text-sm mb-4">
                     {translate('profile.account_deletion_desc', 'Permanently delete your account and all associated data')}
                   </p>
                   <button className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-colors">
@@ -522,17 +485,17 @@ export default function UserProfile() {
               className="space-y-6"
             >
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-semibold text-white">
                   {translate('profile.notification_preferences', 'Notification Preferences')}
                 </h3>
                 
                 <div className="space-y-4">
-                  <label className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <label className="flex items-center justify-between p-4 glass-card rounded-lg">
                     <div>
-                      <span className="font-medium text-gray-900">
+                      <span className="font-medium text-white">
                         {translate('profile.mood_reminders', 'Daily mood check-in reminders')}
                       </span>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-white/70">
                         {translate('profile.mood_reminders_desc', 'Get reminded to log your daily mood')}
                       </p>
                     </div>
@@ -551,16 +514,16 @@ export default function UserProfile() {
                         }
                       }}
                       disabled={!isEditing}
-                      className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                      className="rounded border-white/30 text-blue-400 focus:ring-blue-400 bg-transparent"
                     />
                   </label>
 
-                  <label className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <label className="flex items-center justify-between p-4 glass-card rounded-lg">
                     <div>
-                      <span className="font-medium text-gray-900">
+                      <span className="font-medium text-white">
                         {translate('profile.therapy_reminders', 'Therapy session reminders')}
                       </span>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-white/70">
                         {translate('profile.therapy_reminders_desc', 'Get notified about upcoming therapy sessions')}
                       </p>
                     </div>
@@ -579,16 +542,16 @@ export default function UserProfile() {
                         }
                       }}
                       disabled={!isEditing}
-                      className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                      className="rounded border-white/30 text-blue-400 focus:ring-blue-400 bg-transparent"
                     />
                   </label>
 
-                  <label className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <label className="flex items-center justify-between p-4 glass-card rounded-lg">
                     <div>
-                      <span className="font-medium text-gray-900">
+                      <span className="font-medium text-white">
                         {translate('profile.crisis_alerts', 'Crisis support alerts')}
                       </span>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-white/70">
                         {translate('profile.crisis_alerts_desc', 'Immediate notifications for crisis support resources')}
                       </p>
                     </div>
@@ -607,16 +570,16 @@ export default function UserProfile() {
                         }
                       }}
                       disabled={!isEditing}
-                      className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                      className="rounded border-white/30 text-blue-400 focus:ring-blue-400 bg-transparent"
                     />
                   </label>
 
-                  <label className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <label className="flex items-center justify-between p-4 glass-card rounded-lg">
                     <div>
-                      <span className="font-medium text-gray-900">
+                      <span className="font-medium text-white">
                         {translate('profile.progress_updates', 'Progress updates')}
                       </span>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-white/70">
                         {translate('profile.progress_updates_desc', 'Weekly summaries of your mental health progress')}
                       </p>
                     </div>
@@ -635,7 +598,7 @@ export default function UserProfile() {
                         }
                       }}
                       disabled={!isEditing}
-                      className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                      className="rounded border-white/30 text-blue-400 focus:ring-blue-400 bg-transparent"
                     />
                   </label>
                 </div>
