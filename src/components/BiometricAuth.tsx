@@ -72,7 +72,17 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-healing-50 flex items-center justify-center p-4 relative">
+    <div className="min-h-screen relative flex items-center justify-center p-4">
+      {/* Animated background particles */}
+      <div className="bg-particles">
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+        <div className="particle"></div>
+      </div>
+
       {/* Bolt Badge - Top Right Corner */}
       <motion.a
         href="https://bolt.new"
@@ -83,7 +93,7 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
         whileTap={{ scale: 0.95 }}
         title="Powered by Bolt"
       >
-        <div className="w-16 h-16 bg-white rounded-full shadow-lg border-2 border-gray-200 flex items-center justify-center hover:shadow-xl transition-all duration-300">
+        <div className="w-16 h-16 glass-card flex items-center justify-center hover:shadow-xl transition-all duration-300">
           <img
             src="/black_circle_360x360.png"
             alt="Powered by Bolt"
@@ -92,7 +102,7 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
         </div>
       </motion.a>
 
-      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         
         {/* Left Side - App Info */}
         <motion.div
@@ -107,21 +117,21 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
               transition={{ delay: 0.2 }}
               className="flex items-center space-x-4 mb-6"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-healing-500 rounded-2xl flex items-center justify-center">
+              <div className="w-16 h-16 gradient-button rounded-2xl flex items-center justify-center">
                 <Shield className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-600 to-healing-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl font-bold gradient-text">
                   MindCare
                 </h1>
-                <p className="text-gray-600">AI Mental Health Assistant</p>
+                <p className="text-white/70">AI Mental Health Assistant</p>
               </div>
             </motion.div>
 
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4">
               Your Mental Health Companion
             </h2>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-white/80 mb-8">
               Secure, AI-powered mental health support with advanced biometric protection.
             </p>
           </div>
@@ -135,18 +145,18 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
                 transition={{ delay: 0.4 + index * 0.1 }}
                 className="flex items-center space-x-3"
               >
-                <div className="w-2 h-2 bg-healing-500 rounded-full" />
-                <span className="text-gray-700">{feature}</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full" />
+                <span className="text-white/80">{feature}</span>
               </motion.div>
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-primary-50 to-healing-50 p-6 rounded-2xl border border-primary-200">
+          <div className="glass-card p-6">
             <div className="flex items-center mb-3">
-              <Lock className="w-5 h-5 text-primary-600 mr-2" />
-              <h3 className="font-semibold text-gray-900">Privacy First</h3>
+              <Lock className="w-5 h-5 text-blue-400 mr-2" />
+              <h3 className="font-semibold text-white">Privacy First</h3>
             </div>
-            <p className="text-gray-600 text-sm">
+            <p className="text-white/70 text-sm">
               Your biometric data is processed locally and never stored on our servers. 
               All conversations are encrypted end-to-end for maximum privacy.
             </p>
@@ -158,18 +168,18 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100"
+          className="glass-card p-8"
         >
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Secure Authentication</h3>
-            <p className="text-gray-600">Choose your preferred biometric method</p>
+            <h3 className="text-2xl font-bold text-white mb-2">Secure Authentication</h3>
+            <p className="text-white/70">Choose your preferred biometric method</p>
           </div>
 
           {!authMethod && (
             <div className="space-y-4">
               <motion.button
                 onClick={handleFaceAuth}
-                className="w-full bg-gradient-to-r from-primary-500 to-primary-600 text-white p-6 rounded-2xl hover:shadow-lg transition-all group"
+                className="w-full glass-button text-white p-6 rounded-2xl hover:shadow-lg transition-all group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -183,7 +193,7 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
 
               <motion.button
                 onClick={handleVoiceAuth}
-                className="w-full bg-gradient-to-r from-healing-500 to-healing-600 text-white p-6 rounded-2xl hover:shadow-lg transition-all group"
+                className="w-full glass-button text-white p-6 rounded-2xl hover:shadow-lg transition-all group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -198,7 +208,7 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
               <div className="text-center mt-6">
                 <button
                   onClick={() => onAuth(true)}
-                  className="text-gray-500 hover:text-gray-700 text-sm underline"
+                  className="text-white/60 hover:text-white/80 text-sm underline"
                 >
                   Skip authentication (Demo Mode)
                 </button>
@@ -233,7 +243,7 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1.2, opacity: [0, 1, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute inset-0 border-4 border-primary-500 rounded-2xl"
+                    className="absolute inset-0 border-4 border-blue-400 rounded-2xl"
                   />
                 )}
 
@@ -241,7 +251,7 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute -top-2 -right-2 w-12 h-12 bg-healing-500 rounded-full flex items-center justify-center"
+                    className="absolute -top-2 -right-2 w-12 h-12 bg-green-500 rounded-full flex items-center justify-center"
                   >
                     <Unlock className="w-6 h-6 text-white" />
                   </motion.div>
@@ -249,19 +259,19 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
               </div>
 
               <div className="mb-4">
-                <div className="text-lg font-semibold text-gray-900 mb-2">
+                <div className="text-lg font-semibold text-white mb-2">
                   {isAuthenticated ? 'Authentication Successful!' : 
                    isScanning ? 'Scanning Face...' : 'Position Your Face'}
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-white/20 rounded-full h-2">
                   <motion.div
-                    className="bg-gradient-to-r from-primary-500 to-healing-500 h-2 rounded-full"
+                    className="bg-gradient-to-r from-blue-400 to-green-400 h-2 rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.3 }}
                   />
                 </div>
-                <div className="text-sm text-gray-600 mt-2">{progress}% Complete</div>
+                <div className="text-sm text-white/70 mt-2">{progress}% Complete</div>
               </div>
             </motion.div>
           )}
@@ -273,7 +283,7 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
               className="text-center"
             >
               <div className="relative mb-6">
-                <div className="w-48 h-48 mx-auto bg-gradient-to-br from-healing-400 to-healing-600 rounded-full flex items-center justify-center">
+                <div className="w-48 h-48 mx-auto bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
                   <motion.div
                     animate={isScanning ? { scale: [1, 1.2, 1] } : {}}
                     transition={{ duration: 1, repeat: Infinity }}
@@ -305,7 +315,7 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute -top-2 -right-2 w-12 h-12 bg-healing-500 rounded-full flex items-center justify-center"
+                    className="absolute -top-2 -right-2 w-12 h-12 bg-green-500 rounded-full flex items-center justify-center"
                   >
                     <Unlock className="w-6 h-6 text-white" />
                   </motion.div>
@@ -313,23 +323,23 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
               </div>
 
               <div className="mb-4">
-                <div className="text-lg font-semibold text-gray-900 mb-2">
+                <div className="text-lg font-semibold text-white mb-2">
                   {isAuthenticated ? 'Voice Verified!' : 
                    isScanning ? 'Analyzing Voice Pattern...' : 'Speak Naturally'}
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-white/20 rounded-full h-2">
                   <motion.div
-                    className="bg-gradient-to-r from-healing-500 to-primary-500 h-2 rounded-full"
+                    className="bg-gradient-to-r from-green-400 to-blue-400 h-2 rounded-full"
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.3 }}
                   />
                 </div>
-                <div className="text-sm text-gray-600 mt-2">{progress}% Complete</div>
+                <div className="text-sm text-white/70 mt-2">{progress}% Complete</div>
               </div>
 
               {isScanning && (
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-white/70">
                   "Please say: I am accessing my mental health assistant"
                 </p>
               )}
@@ -343,7 +353,7 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
                 setIsScanning(false);
                 setProgress(0);
               }}
-              className="w-full mt-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+              className="w-full mt-4 py-3 glass-button text-white rounded-lg hover:bg-white/20"
             >
               Try Different Method
             </button>

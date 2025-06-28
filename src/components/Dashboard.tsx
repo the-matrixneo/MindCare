@@ -17,7 +17,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
       title: 'Track Mood',
       description: 'Log your current emotional state',
       icon: Brain,
-      color: 'from-primary-500 to-primary-600',
+      color: 'from-blue-400 to-blue-600',
       action: () => onNavigate('mood'),
     },
     {
@@ -25,7 +25,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
       title: 'Art Therapy',
       description: 'Create therapeutic art',
       icon: Palette,
-      color: 'from-healing-500 to-healing-600',
+      color: 'from-green-400 to-green-600',
       action: () => onNavigate('art'),
       usage: checkUsageLimit('artTherapy'),
     },
@@ -34,7 +34,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
       title: 'TicTac Chat',
       description: 'Connect with support',
       icon: MessageCircle,
-      color: 'from-warm-500 to-warm-600',
+      color: 'from-orange-400 to-orange-600',
       action: () => onNavigate('chat'),
       usage: checkUsageLimit('tictacMinutes'),
     },
@@ -74,14 +74,14 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-primary-500 via-primary-600 to-healing-500 rounded-2xl p-8 text-white"
+        className="glass-card p-8 text-white"
       >
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-2">
+            <h1 className="text-3xl font-bold mb-2 gradient-text">
               Good {new Date().getHours() < 12 ? 'Morning' : 'Afternoon'}, {user.profile.name}
             </h1>
-            <p className="text-primary-100 text-lg">
+            <p className="text-white/80 text-lg">
               How are you feeling today? Let's check in with your mental wellness.
             </p>
           </div>
@@ -97,7 +97,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
 
       {/* Quick Actions */}
       <section>
-        <h2 className="text-2xl font-semibold text-gray-900 mb-6">Quick Actions</h2>
+        <h2 className="text-2xl font-semibold text-white mb-6">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {quickActions.map((action, index) => (
             <motion.div
@@ -106,24 +106,24 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 cursor-pointer"
+              className="glass-card p-6 cursor-pointer text-white"
               onClick={action.action}
             >
               <div className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-xl flex items-center justify-center mb-4`}>
                 <action.icon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">{action.title}</h3>
-              <p className="text-gray-600 mb-4">{action.description}</p>
+              <h3 className="text-xl font-semibold mb-2">{action.title}</h3>
+              <p className="text-white/70 mb-4">{action.description}</p>
               
               {action.usage && (
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-500">
+                  <span className="text-white/60">
                     {action.usage.remaining === -1 
                       ? 'Unlimited' 
                       : `${action.usage.remaining} remaining`}
                   </span>
                   {!action.usage.allowed && (
-                    <span className="text-warm-600 font-medium">Upgrade for more</span>
+                    <span className="text-orange-300 font-medium">Upgrade for more</span>
                   )}
                 </div>
               )}
@@ -138,27 +138,27 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+          className="glass-card p-6"
         >
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-semibold text-gray-900">Weekly Mood Trends</h3>
-            <TrendingUp className="w-5 h-5 text-healing-500" />
+            <h3 className="text-xl font-semibold text-white">Weekly Mood Trends</h3>
+            <TrendingUp className="w-5 h-5 text-green-400" />
           </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={moodChartData}>
                 <defs>
                   <linearGradient id="moodGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.1}/>
+                    <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.8}/>
+                    <stop offset="95%" stopColor="#60a5fa" stopOpacity={0.1}/>
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="day" axisLine={false} tickLine={false} />
+                <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fill: 'white', fontSize: 12 }} />
                 <YAxis hide />
                 <Area
                   type="monotone"
                   dataKey="mood"
-                  stroke="#3b82f6"
+                  stroke="#60a5fa"
                   fillOpacity={1}
                   fill="url(#moodGradient)"
                 />
@@ -171,11 +171,11 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+          className="glass-card p-6"
         >
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-semibold text-gray-900">Today's Wellness Score</h3>
-            <Activity className="w-5 h-5 text-primary-500" />
+            <h3 className="text-xl font-semibold text-white">Today's Wellness Score</h3>
+            <Activity className="w-5 h-5 text-blue-400" />
           </div>
           
           <div className="flex items-center justify-center mb-6">
@@ -185,7 +185,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
                   cx="64"
                   cy="64"
                   r="56"
-                  stroke="#e5e7eb"
+                  stroke="rgba(255,255,255,0.2)"
                   strokeWidth="8"
                   fill="transparent"
                 />
@@ -202,23 +202,23 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-3xl font-bold text-gray-900">78</span>
+                <span className="text-3xl font-bold text-white">78</span>
               </div>
             </div>
           </div>
           
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Mood</span>
-              <span className="font-semibold text-primary-600">Good</span>
+              <span className="text-white/70">Mood</span>
+              <span className="font-semibold text-blue-300">Good</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Stress Level</span>
-              <span className="font-semibold text-warm-600">Moderate</span>
+              <span className="text-white/70">Stress Level</span>
+              <span className="font-semibold text-orange-300">Moderate</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-600">Energy</span>
-              <span className="font-semibold text-healing-600">High</span>
+              <span className="text-white/70">Energy</span>
+              <span className="font-semibold text-green-300">High</span>
             </div>
           </div>
         </motion.div>
@@ -231,8 +231,8 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
         transition={{ delay: 0.5 }}
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-semibold text-gray-900">AI-Powered Insights</h2>
-          <span className="text-sm text-gray-500 flex items-center">
+          <h2 className="text-2xl font-semibold text-white">AI-Powered Insights</h2>
+          <span className="text-sm text-white/60 flex items-center">
             <Shield className="w-4 h-4 mr-1" />
             Powered by Gemma 3
           </span>
@@ -245,29 +245,29 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 + index * 0.1 }}
-              className={`p-6 rounded-2xl border-l-4 ${
+              className={`glass-card p-6 border-l-4 ${
                 insight.type === 'positive'
-                  ? 'bg-healing-50 border-healing-500'
+                  ? 'border-green-400'
                   : insight.type === 'alert'
-                  ? 'bg-warm-50 border-warm-500'
-                  : 'bg-primary-50 border-primary-500'
+                  ? 'border-orange-400'
+                  : 'border-blue-400'
               }`}
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900 mb-2">{insight.title}</h4>
-                  <p className="text-gray-600 mb-3">{insight.description}</p>
-                  <div className="flex items-center text-sm text-gray-500">
+                  <h4 className="font-semibold text-white mb-2">{insight.title}</h4>
+                  <p className="text-white/70 mb-3">{insight.description}</p>
+                  <div className="flex items-center text-sm text-white/60">
                     <Brain className="w-4 h-4 mr-1" />
                     Confidence: {insight.confidence}%
                   </div>
                 </div>
                 <div className={`w-2 h-2 rounded-full ${
                   insight.type === 'positive'
-                    ? 'bg-healing-500'
+                    ? 'bg-green-400'
                     : insight.type === 'alert'
-                    ? 'bg-warm-500'
-                    : 'bg-primary-500'
+                    ? 'bg-orange-400'
+                    : 'bg-blue-400'
                 } animate-pulse`} />
               </div>
             </motion.div>

@@ -48,7 +48,17 @@ function App() {
     <LanguageProvider>
       <AIProvider>
         <UserProvider>
-          <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-healing-50">
+          <div className="min-h-screen relative">
+            {/* Animated background particles */}
+            <div className="bg-particles">
+              <div className="particle"></div>
+              <div className="particle"></div>
+              <div className="particle"></div>
+              <div className="particle"></div>
+              <div className="particle"></div>
+              <div className="particle"></div>
+            </div>
+
             <Header 
               currentView={currentView} 
               onNavigate={setCurrentView}
@@ -56,7 +66,7 @@ function App() {
               onVoiceToggle={() => setShowVoiceAssistant(!showVoiceAssistant)}
             />
             
-            <main className="container mx-auto px-4 py-6 max-w-7xl">
+            <main className="container mx-auto px-4 py-6 max-w-7xl relative z-10" style={{ paddingTop: '120px' }}>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentView}
@@ -92,7 +102,7 @@ function App() {
 
             {/* Emergency FAB */}
             <motion.button
-              className="fixed bottom-6 right-6 bg-crisis-500 hover:bg-crisis-600 text-white p-4 rounded-full shadow-2xl z-50 transition-all duration-300"
+              className="fixed bottom-6 right-6 gradient-button text-white p-4 rounded-full z-50 transition-all duration-300"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleCrisisAlert}
@@ -107,7 +117,7 @@ function App() {
 
             {/* Voice Assistant FAB */}
             <motion.button
-              className="fixed bottom-6 left-6 bg-gradient-to-r from-primary-500 to-healing-500 hover:shadow-lg text-white p-4 rounded-full shadow-2xl z-50 transition-all duration-300"
+              className="fixed bottom-6 left-6 primary-gradient text-white p-4 rounded-full z-50 transition-all duration-300"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowVoiceAssistant(!showVoiceAssistant)}
