@@ -21,6 +21,45 @@ interface AIContextType {
 
 const AIContext = createContext<AIContextType | undefined>(undefined);
 
+// Enhanced emotion analysis with more sophisticated patterns
+const emotionPatterns = {
+  happy: {
+    keywords: ['happy', 'joy', 'excited', 'great', 'wonderful', 'amazing', 'fantastic', 'love', 'perfect', 'awesome', 'brilliant', 'excellent'],
+    phrases: ['feeling good', 'on top of the world', 'over the moon', 'having a blast'],
+    score: 8
+  },
+  sad: {
+    keywords: ['sad', 'depressed', 'down', 'blue', 'miserable', 'heartbroken', 'devastated', 'gloomy', 'melancholy'],
+    phrases: ['feeling down', 'in the dumps', 'under the weather'],
+    score: 3
+  },
+  anxious: {
+    keywords: ['anxious', 'worried', 'nervous', 'stressed', 'panic', 'overwhelmed', 'tense', 'uneasy', 'restless'],
+    phrases: ['on edge', 'butterflies in stomach', 'can\'t relax'],
+    score: 4
+  },
+  angry: {
+    keywords: ['angry', 'mad', 'furious', 'irritated', 'annoyed', 'frustrated', 'rage', 'livid', 'outraged'],
+    phrases: ['fed up', 'had enough', 'boiling mad'],
+    score: 4
+  },
+  calm: {
+    keywords: ['calm', 'peaceful', 'relaxed', 'serene', 'tranquil', 'composed', 'zen', 'balanced'],
+    phrases: ['at peace', 'feeling centered', 'completely relaxed'],
+    score: 7
+  },
+  excited: {
+    keywords: ['excited', 'thrilled', 'pumped', 'energetic', 'enthusiastic', 'eager', 'hyped'],
+    phrases: ['can\'t wait', 'so excited', 'full of energy'],
+    score: 9
+  },
+  tired: {
+    keywords: ['tired', 'exhausted', 'drained', 'weary', 'fatigued', 'sleepy', 'worn out'],
+    phrases: ['running on empty', 'dead tired', 'completely drained'],
+    score: 4
+  }
+};
+
 // Simulated Google AI Edge responses for different languages
 const aiResponses = {
   en: {
@@ -79,16 +118,51 @@ export function AIProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const analyzeEmotion = useCallback(async (text: string, language = 'en') => {
-    // Simulate emotion analysis
+    // Simulate emotion analysis with more sophisticated logic
     await new Promise(resolve => setTimeout(resolve, 500));
     
-    const emotions = ['happy', 'sad', 'anxious', 'angry', 'neutral', 'excited', 'worried'];
-    const detectedEmotion = emotions[Math.floor(Math.random() * emotions.length)];
-    const confidence = 0.7 + Math.random() * 0.3;
+    const lowerText = text.toLowerCase();
+    let detectedEmotion = 'neutral';
+    let confidence = 0.5;
+    let moodScore = 5;
+    
+    // Analyze text for emotional patterns
+    for (const [emotion, pattern] of Object.entries(emotionPatterns)) {
+      let emotionScore = 0;
+      
+      // Check keywords
+      for (const keyword of pattern.keywords) {
+        if (lowerText.includes(keyword)) {
+          emotionScore += 1;
+        }
+      }
+      
+      // Check phrases
+      for (const phrase of pattern.phrases) {
+        if (lowerText.includes(phrase)) {
+          emotionScore += 2; // Phrases have higher weight
+        }
+      }
+      
+      // If this emotion has a higher score, update detection
+      if (emotionScore > 0) {
+        const emotionConfidence = Math.min(0.95, 0.6 + (emotionScore * 0.1));
+        if (emotionConfidence > confidence) {
+          detectedEmotion = emotion;
+          confidence = emotionConfidence;
+          moodScore = pattern.score;
+        }
+      }
+    }
+    
+    // Add some randomness for more realistic variation
+    confidence = Math.max(0.6, confidence + (Math.random() * 0.2 - 0.1));
+    moodScore = Math.max(1, Math.min(10, moodScore + (Math.random() * 2 - 1)));
     
     return {
       emotion: detectedEmotion,
       confidence: confidence,
+      moodScore: Math.round(moodScore),
       language: language,
       suggestions: [
         'Take deep breaths',
