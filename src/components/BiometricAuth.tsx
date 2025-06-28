@@ -72,7 +72,26 @@ export default function BiometricAuth({ onAuth }: BiometricAuthProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-healing-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-healing-50 flex items-center justify-center p-4 relative">
+      {/* Bolt Badge - Top Right Corner */}
+      <motion.a
+        href="https://bolt.new"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed top-6 right-6 z-50"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        title="Powered by Bolt"
+      >
+        <div className="w-16 h-16 bg-white rounded-full shadow-lg border-2 border-gray-200 flex items-center justify-center hover:shadow-xl transition-all duration-300">
+          <img
+            src="/black_circle_360x360.png"
+            alt="Powered by Bolt"
+            className="w-12 h-12 rounded-full"
+          />
+        </div>
+      </motion.a>
+
       <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
         {/* Left Side - App Info */}

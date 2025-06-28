@@ -27,7 +27,26 @@ export default function Header({ currentView, onNavigate, onCrisisAlert, onVoice
   ];
 
   return (
-    <header className="bg-white/80 backdrop-blur-md border-b border-primary-100 sticky top-0 z-40">
+    <header className="bg-white/80 backdrop-blur-md border-b border-primary-100 sticky top-0 z-40 relative">
+      {/* Bolt Badge - Top Right Corner */}
+      <motion.a
+        href="https://bolt.new"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute top-2 right-4 z-50"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        title="Powered by Bolt"
+      >
+        <div className="w-12 h-12 bg-white rounded-full shadow-md border border-gray-200 flex items-center justify-center hover:shadow-lg transition-all duration-300">
+          <img
+            src="/black_circle_360x360.png"
+            alt="Powered by Bolt"
+            className="w-8 h-8 rounded-full"
+          />
+        </div>
+      </motion.a>
+
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -67,24 +86,7 @@ export default function Header({ currentView, onNavigate, onCrisisAlert, onVoice
           </nav>
 
           {/* User Controls */}
-          <div className="flex items-center space-x-4">
-            {/* Bolt Badge */}
-            <motion.a
-              href="https://bolt.new"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              title="Powered by Bolt"
-            >
-              <img
-                src="/black_circle_360x360.png"
-                alt="Powered by Bolt"
-                className="w-10 h-10 hover:opacity-80 transition-opacity duration-300"
-              />
-            </motion.a>
-
+          <div className="flex items-center space-x-4 pr-16">
             {/* Voice Assistant Button */}
             <motion.button
               onClick={onVoiceToggle}
