@@ -73,13 +73,16 @@ export default function Header({ currentView, onNavigate, onCrisisAlert, onVoice
               href="https://bolt.new"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center space-x-2 px-3 py-1.5 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-xs font-semibold hover:shadow-lg transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center justify-center"
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              title="Built with Bolt"
+              title="Powered by Bolt"
             >
-              <Zap className="w-3 h-3" />
-              <span>Built with Bolt</span>
+              <img
+                src="/black_circle_360x360.png"
+                alt="Powered by Bolt"
+                className="w-10 h-10 hover:opacity-80 transition-opacity duration-300"
+              />
             </motion.a>
 
             {/* Voice Assistant Button */}
@@ -217,12 +220,16 @@ export default function Header({ currentView, onNavigate, onCrisisAlert, onVoice
                 href="https://bolt.new"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-3 px-4 py-3 mx-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg text-sm font-semibold"
+                className="flex items-center space-x-3 px-4 py-3 mx-4 bg-black text-white rounded-lg text-sm font-semibold"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Zap className="w-4 h-4" />
-                <span>Built with Bolt</span>
+                <img
+                  src="/black_circle_360x360.png"
+                  alt="Powered by Bolt"
+                  className="w-6 h-6"
+                />
+                <span>Powered by Bolt</span>
               </motion.a>
             </nav>
           </motion.div>
